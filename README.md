@@ -109,7 +109,7 @@ The dataset contains information related to:
 ### Dataset
 
 🔗 **Kaggle Dataset:**  
-`ADD-YOUR-KAGGLE-DATASET-LINK-HERE`
+`https://www.kaggle.com/datasets/shubhampatil75/h-and-m-personalized-fashion-recommendations/data`
 
 ---
 
