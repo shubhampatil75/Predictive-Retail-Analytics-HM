@@ -385,7 +385,7 @@ Predictive-Retail-Analytics-HM/
 ├── README.md
 ├── requirements.txt
 │
-├── notebooks/
+├── Notebooks/
 │   │
 │   ├── 01_SQL_Data_Loading.ipynb
 │   │
@@ -399,18 +399,12 @@ Predictive-Retail-Analytics-HM/
 │   │
 │   └── 06_Sales_Forecasting.ipynb
 │
-├── models/
+├── Models/
 │   ├── recommender_svd.pkl
 │   └── sales_forecast_rf_tuned.pkl
 │
-├── images/
-│   ├── customer_segmentation.png
-│   ├── recommendation_system.png
-│   ├── churn_prediction.png
-│   └── sales_forecasting.png
-│
-└── data/
-    └── README.md
+└── Data/
+    └── Dataset
 ```
 
 ---
