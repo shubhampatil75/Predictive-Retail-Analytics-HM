@@ -1,199 +1,188 @@
 # 🛍️ Predictive Retail Analytics: H&M
 
 ![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)
+![SQL](https://img.shields.io/badge/SQL-Data%20Engineering-orange.svg)
 ![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-150458.svg)
-![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-Machine%20Learning-orange.svg)
+![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-Machine%20Learning-F7931E.svg)
 ![XGBoost](https://img.shields.io/badge/XGBoost-Churn%20Prediction-red.svg)
 ![Scikit-Surprise](https://img.shields.io/badge/Scikit--Surprise-Recommendation-purple.svg)
-![Statsmodels](https://img.shields.io/badge/Statsmodels-Statistics-green.svg)
 
-### An end-to-end machine learning project analyzing H&M retail transactions to understand customer behavior, personalize product recommendations, predict customer churn, and forecast sales.
-
----
-
-## 📌 Table of Contents
-
-* [Overview](#-overview)
-* [Business Problem](#-business-problem)
-* [Dataset](#-dataset)
-* [Project Objectives](#-project-objectives)
-* [Project Workflow](#-project-workflow)
-* [Key Analysis](#-key-analysis)
-
-  * [Customer Segmentation](#1-customer-segmentation)
-  * [Recommendation System](#2-recommendation-system)
-  * [Churn Prediction](#3-customer-churn-prediction)
-  * [Sales Forecasting](#4-sales-forecasting)
-* [Key Results](#-key-results)
-* [Technologies Used](#-technologies-used)
-* [Project Structure](#-project-structure)
-* [How to Run](#-how-to-run)
-* [Visualizations](#-visualizations)
-* [Future Improvements](#-future-improvements)
-* [Author](#-author)
+### An end-to-end retail analytics and machine learning project built on H&M transaction data to analyze customer behavior, generate personalized recommendations, predict customer churn, and forecast sales.
 
 ---
 
-# 📊 Overview
+## 📌 Project Overview
 
-This project applies **Data Science and Machine Learning techniques** to the H&M Personalized Fashion Recommendations dataset.
+Retail transaction data contains valuable information about customer purchasing behavior, product preferences, retention patterns, and sales trends.
 
-The objective is to transform historical retail transaction data into actionable insights across four major business areas:
+This project transforms large-scale H&M transaction data into actionable insights using a combination of:
 
-* 👥 Customer segmentation
-* 🎯 Personalized product recommendations
-* 🚨 Customer churn prediction
-* 📈 Sales forecasting
+- SQL data processing
+- Exploratory Data Analysis
+- Customer segmentation
+- Recommendation systems
+- Classification
+- Imbalanced learning
+- Time-series feature engineering
+- Statistical analysis
+- Predictive modeling
 
-The project combines **exploratory data analysis, feature engineering, unsupervised learning, recommendation systems, classification, regression, and statistical analysis** into a single retail analytics pipeline.
+The project is organized into four major analytical components:
 
----
-
-# 🎯 Business Problem
-
-Retail companies generate millions of customer transactions, but historical transaction data alone does not directly answer important business questions.
-
-This project focuses on four practical questions:
-
-| Business Question                                              | Analytical Approach      |
-| -------------------------------------------------------------- | ------------------------ |
-| Which customers have similar purchasing behavior?              | RFM + K-Means            |
-| Which products should be recommended to a customer?            | SVD Matrix Factorization |
-| Which customers are at risk of becoming inactive?              | XGBoost Classification   |
-| What can historical sales patterns tell us about future sales? | Random Forest Regression |
+| Business Problem | Solution |
+|---|---|
+| Who are our different customer groups? | RFM Analysis + K-Means |
+| Which products should be recommended? | SVD Recommendation System |
+| Which customers are at risk of churn? | XGBoost Classification |
+| What will future sales look like? | Random Forest Forecasting |
 
 ---
 
-# 📂 Dataset
+# 🎯 Business Objectives
 
-The project uses the **H&M Personalized Fashion Recommendations** dataset from Kaggle.
+The project focuses on four key retail business questions:
 
-The dataset contains information related to:
+### 1. Customer Segmentation
+Identify customer groups based on purchasing behavior and spending patterns.
 
-* Customer transactions
-* Customer information
-* Product/article information
+### 2. Personalized Recommendations
+Develop a recommendation system that suggests relevant products to individual customers.
 
-The project works with approximately:
+### 3. Customer Churn Prediction
+Identify customers who may become inactive based on their historical purchasing behavior.
 
-* **15M+ historical transactions**
-* **1.3M+ customers**
-
-> Raw CSV files and the local SQLite database are not included in the repository because of their large file size.
-
-### Dataset Source
-
-**H&M Personalized Fashion Recommendations**
-
----
-
-# 🎯 Project Objectives
-
-### Customer Analytics
-
-* Understand customer purchasing behavior
-* Create meaningful customer segments
-* Identify high-value and inactive customer groups
-
-### Recommendation System
-
-* Learn customer-product interaction patterns
-* Generate personalized product recommendations
-* Evaluate recommendation performance
-
-### Customer Retention
-
-* Define a 90-day churn window
-* Identify behavioral patterns associated with churn
-* Build a predictive churn classification model
-
-### Sales Analytics
-
-* Analyze historical revenue patterns
-* Create temporal and lag-based features
-* Forecast future sales
+### 4. Sales Forecasting
+Use historical sales patterns and temporal features to predict future sales.
 
 ---
 
 # 🔄 Project Workflow
 
 ```text
-Raw H&M Dataset
-       │
-       ▼
-Data Extraction & SQLite Database
-       │
-       ▼
-Data Cleaning & Preprocessing
-       │
-       ▼
-Exploratory Data Analysis
-       │
-       ├──────────────┬──────────────┬──────────────┐
-       ▼              ▼              ▼              ▼
-      RFM          Customer-Item    Churn        Time-Series
-   Analysis        Interactions   Features       Features
-       │              │              │              │
-       ▼              ▼              ▼              ▼
-    K-Means           SVD          XGBoost      Random Forest
-       │              │              │              │
-       └──────────────┴──────────────┴──────────────┘
-                              │
-                              ▼
-                    Business Insights
+                H&M Transaction Data
+                         │
+                         ▼
+               SQL Data Loading
+                         │
+                         ▼
+             Data Cleaning & Preparation
+                         │
+                         ▼
+               EDA & Visualization
+                         │
+        ┌────────────────┼────────────────┐
+        │                │                │
+        ▼                ▼                ▼
+   Customer          Customer-Item     Time-Series
+   Analytics         Interactions      Analysis
+        │                │                │
+        ▼                ▼                ▼
+   RFM Analysis          SVD          Lag Features
+        │                │                │
+        ▼                ▼                ▼
+    K-Means         Recommendations  Sales Forecast
+        │                │                │
+        └────────────────┼────────────────┘
+                         │
+                         ▼
+                 Business Insights
 ```
 
 ---
 
-# 🔍 Key Analysis
+# 📂 Dataset
 
-## 1. 👥 Customer Segmentation
+The project uses transaction data based on the **H&M Personalized Fashion Recommendations** dataset.
 
-### Objective
+The project dataset has been prepared and uploaded to **Kaggle** for reproducibility and easier access.
 
-Group customers according to their purchasing behavior.
+The dataset contains information related to:
 
-### Methodology
+- Customer transactions
+- Customer identifiers
+- Product/article information
+- Transaction dates
+- Product attributes
 
-Created **RFM features**:
+> Raw data files are not stored directly in this GitHub repository because of their large size.
 
-* **Recency** → Days since the last purchase
-* **Frequency** → Number of purchases
-* **Monetary** → Total spending
+### Dataset
 
-The RFM features were then scaled and used as inputs for **K-Means clustering**.
-
-### Customer Profiles
-
-The resulting clusters were analyzed to identify behavioral profiles such as:
-
-* VIP / high-value customers
-* Frequent active shoppers
-* Occasional shoppers
-* Lapsed customers
-
-### Business Value
-
-Customer segmentation can support:
-
-* Targeted marketing campaigns
-* Customer retention
-* Personalized offers
-* High-value customer identification
+🔗 **Kaggle Dataset:**  
+`ADD-YOUR-KAGGLE-DATASET-LINK-HERE`
 
 ---
 
-## 2. 🎯 Recommendation System
+# 📊 Dataset Scale
+
+The project works with approximately:
+
+- **15M+ transactions**
+- **1.3M+ customers**
+- Large-scale customer-product interactions
+
+The data is processed using SQL and Python before being used for machine learning workflows.
+
+---
+
+# 🔍 Analysis & Machine Learning
+
+## 1️⃣ Customer Segmentation
 
 ### Objective
 
-Generate personalized product recommendations based on historical customer-product interactions.
+Identify distinct customer groups based on purchasing behavior.
+
+### Methodology
+
+Customer-level RFM features were created:
+
+- **Recency**: Time since the customer's latest purchase
+- **Frequency**: Number of purchases
+- **Monetary**: Total spending
+
+The resulting RFM features were prepared and scaled before applying **K-Means clustering**.
+
+### Customer Segments
+
+The resulting clusters are analyzed based on:
+
+- Customer activity
+- Purchase frequency
+- Spending behavior
+- Recency
+- Overall customer value
+
+This allows customers to be grouped into meaningful behavioral segments such as:
+
+- High-value customers
+- Frequent active customers
+- Occasional shoppers
+- Lapsed customers
+
+### Business Applications
+
+Customer segmentation can support:
+
+- Targeted marketing
+- Customer retention
+- Personalized campaigns
+- High-value customer identification
+- Customer lifecycle analysis
+
+---
+
+## 2️⃣ Recommendation System
+
+### Objective
+
+Build a personalized product recommendation system using historical customer-product interactions.
 
 ### Methodology
 
 The recommendation engine uses:
 
-**SVD Matrix Factorization**
+**Singular Value Decomposition (SVD)**
 
 implemented using the `scikit-surprise` library.
 
@@ -207,64 +196,87 @@ The system generates **12 personalized product recommendations** for a selected 
 
 **RMSE: 0.45**
 
-### Business Value
+### Business Applications
 
 The recommendation system can support:
 
-* Personalized product discovery
-* Cross-selling
-* Product recommendations
-* Customer engagement
-* Long-tail product discovery
+- Personalized product discovery
+- Cross-selling
+- Product recommendations
+- Customer engagement
+- Long-tail product discovery
 
 ---
 
-## 3. 🚨 Customer Churn Prediction
+## 3️⃣ Customer Churn Prediction
 
 ### Objective
 
-Identify customers who are likely to become inactive based on their historical purchasing behavior.
+Predict customers who are at risk of becoming inactive based on their historical purchasing behavior.
 
 ### Churn Definition
 
-A customer is considered churned when there is **no purchase activity for 90 days** according to the project definition.
+The project defines churn using a **90-day inactivity window**.
+
+Customer-level behavioral features are created and used to train a classification model.
 
 ### Methodology
 
 ```text
-Customer Transactions
-        ↓
-Customer-Level Features
-        ↓
-90-Day Churn Label
-        ↓
+Transaction Data
+       ↓
+Customer-Level Aggregation
+       ↓
+Feature Engineering
+       ↓
+90-Day Churn Definition
+       ↓
 Class Imbalance Analysis
-        ↓
+       ↓
 SMOTE
-        ↓
-XGBoost Classifier
-        ↓
+       ↓
+XGBoost
+       ↓
 Model Evaluation
 ```
 
-### Model
+### Models & Techniques
 
-**XGBoost Classifier**
+- XGBoost Classification
+- SMOTE
+- Feature Engineering
+- Classification Metrics
+- Confusion Matrix Analysis
 
-### Business Value
+### Business Applications
 
-The model can help identify customers who may require retention or re-engagement efforts.
+The churn model can help businesses:
 
-Potential applications include:
-
-* Retention campaigns
-* Customer reactivation
-* Targeted offers
-* CRM prioritization
+- Identify at-risk customers
+- Prioritize retention campaigns
+- Target re-engagement offers
+- Monitor customer activity
+- Improve customer retention strategies
 
 ---
 
-## 4. 📈 Sales Forecasting
+## 4️⃣ Advanced Churn Analysis
+
+The advanced churn notebook extends the initial churn modeling workflow with additional analysis and model evaluation.
+
+This stage focuses on improving the predictive workflow through:
+
+- Additional feature analysis
+- Model experimentation
+- Performance evaluation
+- Threshold analysis
+- Business interpretation
+
+The advanced workflow is designed to evaluate the model beyond a single accuracy metric and focus on identifying customers who are relevant from a retention perspective.
+
+---
+
+## 5️⃣ Sales Forecasting
 
 ### Objective
 
@@ -272,21 +284,21 @@ Forecast future sales using historical transaction patterns and time-based featu
 
 ### Feature Engineering
 
-The forecasting dataset includes temporal features such as:
+The forecasting workflow includes temporal features such as:
 
-* 7-day lag
-* 30-day lag
-* Historical sales
-* Time-based variables
-* Rolling/temporal characteristics
+- 7-day lag
+- 30-day lag
+- Historical sales
+- Time-based variables
+- Rolling/temporal features
 
 ### Statistical Analysis
 
-Additional analysis was performed using:
+The project also applies:
 
-* OLS Regression
-* Variance Inflation Factor (VIF)
-* Residual Analysis
+- OLS Regression
+- Variance Inflation Factor (VIF)
+- Residual Analysis
 
 ### Model
 
@@ -296,42 +308,72 @@ Additional analysis was performed using:
 
 **RMSE: 113.74**
 
-### Business Value
+### Business Applications
 
-Forecasting can support:
+Sales forecasting can support:
 
-* Inventory planning
-* Warehouse operations
-* Workforce planning
-* Demand planning
-* Sales planning
+- Demand planning
+- Inventory planning
+- Warehouse operations
+- Workforce scheduling
+- Sales planning
 
 ---
 
 # 📌 Key Results
 
-| Analysis              | Technique                | Result                       |
-| --------------------- | ------------------------ | ---------------------------- |
-| Customer Segmentation | RFM + K-Means            | Behavioral customer segments |
-| Recommendation System | SVD Matrix Factorization | **RMSE: 0.45**               |
-| Churn Prediction      | XGBoost + SMOTE          | 90-day churn classification  |
-| Sales Forecasting     | Random Forest Regression | **RMSE: 113.74**             |
+| Component | Technique | Result |
+|---|---|---|
+| Customer Segmentation | RFM + K-Means | Behavioral customer segments |
+| Recommendation System | SVD Matrix Factorization | **RMSE: 0.45** |
+| Churn Prediction | XGBoost + SMOTE | 90-day churn prediction |
+| Sales Forecasting | Random Forest Regression | **RMSE: 113.74** |
+
+> Model performance should be interpreted together with the corresponding dataset, feature engineering approach, validation methodology, and business objective.
 
 ---
 
 # 🛠️ Technologies Used
 
-| Category              | Technologies          |
-| --------------------- | --------------------- |
-| Programming           | Python                |
-| Data Manipulation     | Pandas, NumPy         |
-| Database              | SQLite                |
-| Visualization         | Matplotlib, Seaborn   |
-| Machine Learning      | Scikit-Learn, XGBoost |
-| Recommendation System | Scikit-Surprise, SVD  |
-| Statistical Analysis  | Statsmodels           |
-| Development           | Jupyter Notebook      |
-| Version Control       | Git, GitHub           |
+### Programming & Data Processing
+
+- Python
+- Pandas
+- NumPy
+
+### Database
+
+- SQL
+- SQLite
+
+### Data Visualization
+
+- Matplotlib
+- Seaborn
+
+### Machine Learning
+
+- Scikit-Learn
+- XGBoost
+
+### Recommendation Systems
+
+- Scikit-Surprise
+- SVD Matrix Factorization
+
+### Statistical Analysis
+
+- Statsmodels
+- OLS Regression
+- VIF
+- Residual Analysis
+
+### Development
+
+- Jupyter Notebook
+- Git
+- GitHub
+- Kaggle
 
 ---
 
@@ -342,14 +384,19 @@ Predictive-Retail-Analytics-HM/
 │
 ├── README.md
 ├── requirements.txt
-├── .gitignore
 │
 ├── notebooks/
-│   ├── 01_Data_Extraction.ipynb
-│   ├── 02_Exploratory_Data_Analysis.ipynb
+│   │
+│   ├── 01_SQL_Data_Loading.ipynb
+│   │
+│   ├── 02_EDA_Visualizations.ipynb
+│   │
 │   ├── 03_Customer_Segmentation.ipynb
+│   │
 │   ├── 04_Recommendation_System.ipynb
+│   │
 │   ├── 05_Churn_Prediction.ipynb
+│   │
 │   └── 06_Sales_Forecasting.ipynb
 │
 ├── models/
@@ -357,10 +404,10 @@ Predictive-Retail-Analytics-HM/
 │   └── sales_forecast_rf_tuned.pkl
 │
 ├── images/
-│   ├── customer_segments.png
-│   ├── recommendation_analysis.png
-│   ├── churn_analysis.png
-│   └── sales_forecast.png
+│   ├── customer_segmentation.png
+│   ├── recommendation_system.png
+│   ├── churn_prediction.png
+│   └── sales_forecasting.png
 │
 └── data/
     └── README.md
@@ -390,96 +437,118 @@ Or:
 pip install pandas numpy scikit-learn xgboost scikit-surprise statsmodels matplotlib seaborn
 ```
 
-## 3. Download the Dataset
+## 3. Download the Project Dataset
 
-Download the H&M Personalized Fashion Recommendations dataset from Kaggle.
+The prepared project dataset is available through Kaggle.
 
-Place the required CSV files in the project data directory.
+Download the required data files and place them in the appropriate project directory.
 
-## 4. Run the Notebooks
+**Kaggle Dataset:**  
+`ADD-YOUR-KAGGLE-DATASET-LINK-HERE`
 
-Execute the notebooks in the following order:
+## 4. Execute the Notebooks
+
+Run the notebooks in the following sequence:
 
 ```text
-01_Data_Extraction.ipynb
+01_SQL_Data_Loading
         ↓
-02_Exploratory_Data_Analysis.ipynb
+02_EDA_Visualizations
         ↓
-03_Customer_Segmentation.ipynb
+03_Customer_Segmentation
         ↓
-04_Recommendation_System.ipynb
+04_Recommendation_System
         ↓
-05_Churn_Prediction.ipynb
+05_Churn_Prediction
         ↓
-06_Sales_Forecasting.ipynb
+05_Churn_Prediction_Advanced
+        ↓
+06_Sales_Forecasting
 ```
 
 ---
 
-# 📊 Visualizations
+# 📈 Visualizations
 
-The project includes visual analysis covering:
+The project includes visual analysis for:
 
 ### Customer Segmentation
 
-* RFM distributions
-* Cluster characteristics
-* Customer segment comparisons
+- RFM distributions
+- Cluster analysis
+- Customer segment comparisons
 
 ### Recommendation System
 
-* Recommendation performance
-* Customer-product interactions
-* Recommendation examples
+- Customer-product interactions
+- Recommendation analysis
+- Model evaluation
 
 ### Churn Prediction
 
-* Churn distribution
-* Feature analysis
-* Classification performance
-* Confusion matrix
+- Churn distribution
+- Feature analysis
+- Confusion matrix
+- Model performance
 
 ### Sales Forecasting
 
-* Historical sales trends
-* Actual vs predicted sales
-* Residual analysis
-* Forecast performance
-
-Example:
-
-```text
-images/
-├── customer_segments.png
-├── recommendation_analysis.png
-├── churn_analysis.png
-└── sales_forecast.png
-```
+- Historical sales trends
+- Actual vs predicted sales
+- Residual analysis
+- Forecast performance
 
 ---
 
 # 🔮 Future Improvements
 
-* Deploy the recommendation system using Streamlit
-* Build an interactive Power BI retail dashboard
-* Develop Customer Lifetime Value (CLV) prediction
-* Compare SVD with Neural Collaborative Filtering
-* Experiment with LightFM and other recommendation algorithms
-* Compare XGBoost with LightGBM and CatBoost
-* Evaluate advanced time-series models
-* Implement automated model retraining
-* Containerize the project using Docker
-* Deploy the pipeline to a cloud platform
+Potential extensions include:
+
+- Deploying the recommendation system using Streamlit
+- Building an interactive Power BI dashboard
+- Developing Customer Lifetime Value prediction
+- Comparing SVD with other recommendation algorithms
+- Experimenting with LightFM and Neural Collaborative Filtering
+- Comparing XGBoost with LightGBM and CatBoost
+- Evaluating advanced time-series models
+- Implementing automated model retraining
+- Containerizing the project using Docker
+- Deploying the complete solution to a cloud platform
+
+---
+
+# 💡 Key Learning Outcomes
+
+This project provided practical experience in:
+
+- Large-scale transaction data processing
+- SQL-based data loading
+- Exploratory Data Analysis
+- Feature engineering
+- RFM analysis
+- Customer segmentation
+- K-Means clustering
+- Recommendation systems
+- Matrix factorization
+- Classification
+- Imbalanced learning
+- SMOTE
+- Churn prediction
+- Time-series feature engineering
+- Regression
+- Statistical analysis
+- Model evaluation
+- Business-oriented interpretation
 
 ---
 
 # 👨‍💻 Author
 
-### Shubham Patil
+## Shubham Patil
 
 **Data Science & Analytics | Python | SQL | Machine Learning | Power BI**
 
-This project demonstrates the application of machine learning and analytics techniques to a real-world retail use case, covering the complete journey from **transaction data to predictive insights**.
+This project demonstrates the application of data analytics and machine learning techniques to a large-scale retail use case, covering the journey from **raw transaction data to predictive business insights**.
 
 ---
 
